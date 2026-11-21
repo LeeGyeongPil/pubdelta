@@ -1,0 +1,76 @@
+# Practice mock: a lock file in the real pubspec.lock format (hashes are placeholders).
+packages:
+  args:
+    dependency: "direct main"
+    description:
+      name: args
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
+  async:
+    dependency: "transitive"
+    description:
+      name: async
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.13.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.2"
+  firebase_core:
+    dependency: "direct main"
+    description:
+      name: firebase_core
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.14.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.5"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
+  lints:
+    dependency: "direct dev"
+    description:
+      name: lints
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.2"
+  riverpod:
+    dependency: "direct main"
+    description:
+      name: riverpod
+      sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.0"
+sdks:
+  dart: ">=3.7.0 <4.0.0"
