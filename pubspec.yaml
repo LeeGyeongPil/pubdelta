@@ -1,6 +1,6 @@
 name: pubdelta
 description: Slice the CHANGELOG entries between your locked version and the upgrade target, ranked by breaking-change signals. CLI and MCP server for Dart and Flutter.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/LeeGyeongPil/pubdelta
 issue_tracker: https://github.com/LeeGyeongPil/pubdelta/issues
 topics:

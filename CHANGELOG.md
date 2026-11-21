@@ -4,6 +4,23 @@ All notable changes to this project are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1]
+
+### Fixed
+
+- CI: pin the Dart SDK to 3.8.1 and the runner to `ubuntu-24.04`, run the same
+  four steps as the README (`pub get`, `format`, `analyze`, `test`), and drop
+  the weekly scheduled run. A test checks that the workflow keeps the pinned
+  SDK.
+- The test that starts the SDK's real `dart pub outdated` is now tagged
+  `integration` and skipped by default (`dart_test.yaml`). Run it with
+  `dart test --run-skipped -t integration`.
+
+### Changed
+
+- README "Development" section lists the CI steps, explains the skipped test
+  and the pinned SDK.
+
 ## [0.1.0]
 
 ### Added
