@@ -1,20 +1,25 @@
-# Tests need no network and no keys: a fake pub repository runs on 127.0.0.1.
+# The same four steps you can run locally (see README "Development").
+# The Dart SDK is pinned: the formatter and the analyzer ship with the SDK,
+# so a newer SDK can judge the same code differently.
+# test/ci_workflow_test.dart checks this file; update both together.
 name: ci
 on:
   push:
   pull_request:
-  schedule:
-    - cron: "17 3 * * 1"   # every Monday: catches SDK or dependency changes
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4.4.0
+      - uses: actions/checkout@v6.1.0
       - uses: dart-lang/setup-dart@v1.8.2
         with:
-          sdk: stable
+          sdk: "3.8.1"
       - run: dart pub get
-      - run: dart analyze
       - run: dart format --output=none --set-exit-if-changed .
+      - run: dart analyze
+      # Tests tagged `integration` are skipped by dart_test.yaml (no network).
       - run: dart test
