@@ -1,0 +1,20 @@
+# Tests need no network and no keys: a fake pub repository runs on 127.0.0.1.
+name: ci
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1"   # every Monday: catches SDK or dependency changes
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.4.0
+      - uses: dart-lang/setup-dart@v1.8.2
+        with:
+          sdk: stable
+      - run: dart pub get
+      - run: dart analyze
+      - run: dart format --output=none --set-exit-if-changed .
+      - run: dart test
