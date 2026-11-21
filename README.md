@@ -333,13 +333,33 @@ Good fit: you want a local view of what changed across your whole lock file befo
 
 ## Development
 
+These are the same four steps CI runs, in the same order:
+
 ```bash
 dart pub get
+dart format --output=none --set-exit-if-changed .
 dart analyze
 dart test
 ```
 
-Tests need no network and no keys: a fake pub repository runs on 127.0.0.1. Bugs and ideas are welcome as issues. Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+`dart test` needs no network and no keys: a fake pub repository runs on 127.0.0.1. One test is skipped by default (`~1`). The reason is printed in the middle of the progress output, right after that test's name, not next to the last line (shortened, timings vary):
+
+```
+00:00 +106: test/plan_test.dart: real `dart pub outdated --json` against a fake repository runs end to end with PUB_HOSTED_URL
+  Skip: Starts the SDK's real `dart pub`. Run with: dart test --run-skipped -t integration
+...
+00:06 +193 ~1: All tests passed!
+```
+
+That skipped test is tagged `integration`. It starts the SDK's real `dart pub outdated` against the local fake repository. pub's behavior can change between SDK versions, so `dart_test.yaml` leaves it out of the default run and of CI. Run it by hand (checked on Dart 3.8.1):
+
+```bash
+dart test --run-skipped -t integration
+```
+
+CI pins the Dart SDK to 3.8.1 (`.github/workflows/ci.yml`). The formatter and the analyzer ship with the SDK, so a newer SDK can judge the same code differently. To move to another SDK, change `ci.yml` and `pinnedSdk` in `test/ci_workflow_test.dart` together.
+
+Bugs and ideas are welcome as issues. Changes are listed in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

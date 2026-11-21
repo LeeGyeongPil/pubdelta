@@ -337,13 +337,33 @@ flowchart LR
 
 ## 개발·기여
 
+CI 가 돌리는 네 단계와 같은 명령, 같은 순서입니다:
+
 ```bash
 dart pub get
+dart format --output=none --set-exit-if-changed .
 dart analyze
 dart test
 ```
 
-테스트는 네트워크도 키도 필요 없습니다: 127.0.0.1 에 가짜 pub 저장소를 띄웁니다. 버그·제안은 이슈로 남겨 주세요. 변경 기록은 [CHANGELOG.md](CHANGELOG.md).
+`dart test` 는 네트워크도 키도 필요 없습니다: 127.0.0.1 에 가짜 pub 저장소를 띄웁니다. 시험 1개는 기본으로 건너뜁니다(`~1`). 이유는 마지막 줄 옆이 아니라 진행 출력 중간, 그 시험 이름 바로 아래에 나옵니다(줄임, 시간은 실행마다 다름):
+
+```
+00:00 +106: test/plan_test.dart: real `dart pub outdated --json` against a fake repository runs end to end with PUB_HOSTED_URL
+  Skip: Starts the SDK's real `dart pub`. Run with: dart test --run-skipped -t integration
+...
+00:06 +193 ~1: All tests passed!
+```
+
+건너뛴 시험에는 `integration` 태그가 붙어 있습니다. SDK 의 실제 `dart pub outdated` 를 로컬 가짜 저장소에 붙여 돌립니다. pub 동작은 SDK 버전에 따라 달라질 수 있어서 `dart_test.yaml` 이 기본 실행과 CI 에서 뺍니다. 직접 돌리려면(Dart 3.8.1 에서 확인):
+
+```bash
+dart test --run-skipped -t integration
+```
+
+CI 는 Dart SDK 를 3.8.1 로 고정합니다(`.github/workflows/ci.yml`). 포매터와 분석기가 SDK 에 들어 있어서, SDK 가 바뀌면 같은 코드도 결과가 달라질 수 있기 때문입니다. 다른 SDK 로 옮길 때는 `ci.yml` 과 `test/ci_workflow_test.dart` 의 `pinnedSdk` 를 함께 고칩니다.
+
+버그·제안은 이슈로 남겨 주세요. 변경 기록은 [CHANGELOG.md](CHANGELOG.md).
 
 ## 라이선스
 
