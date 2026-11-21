@@ -1,0 +1,10 @@
+# Settings for `dart test` (package:test).
+tags:
+  integration:
+    # These tests start the SDK's real `dart pub outdated` (against a local
+    # fake repository). pub's behavior depends on the SDK version, so they are
+    # left out of the default run and of CI.
+    skip: "Starts the SDK's real `dart pub`. Run with: dart test --run-skipped -t integration"
+
+# Child-process tests (CLI, MCP) compile Dart on start; give slow machines room.
+timeout: 2x

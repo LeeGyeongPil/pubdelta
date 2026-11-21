@@ -317,6 +317,8 @@ No changes would be made.
     });
   });
 
+  // SDK 의 실제 pub 를 띄우는 시험 — dart_test.yaml 이 기본으로 건너뛴다.
+  // 직접 돌리기: dart test --run-skipped -t integration
   group('real `dart pub outdated --json` against a fake repository', () {
     test(
       'runs end to end with PUB_HOSTED_URL',
@@ -365,6 +367,7 @@ dependencies:
         expect('${byName['args']!.to}', '2.7.0');
         expect(server.requests, contains('/api/packages/http'));
       },
+      tags: ['integration'],
       timeout: const Timeout(Duration(minutes: 2)),
     );
   });
