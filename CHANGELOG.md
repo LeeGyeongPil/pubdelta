@@ -4,6 +4,22 @@ All notable changes to this project are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2]
+
+### Changed
+
+- README: the comparison section is now "When to use it (vs. other tools)"
+  and the hero screenshot caption says it was run on the `example/` practice
+  data with the example options left out.
+
+### Known issues
+
+- MCP tools silently ignore unknown arguments (for example `lock` instead of
+  `lockFile`).
+- The MCP `plan` tool accepts `outdatedFile` but `tools/list` and the README
+  table do not list it.
+- MCP error messages mention CLI options such as `--lock`.
+
 ## [0.1.1]
 
 ### Fixed
