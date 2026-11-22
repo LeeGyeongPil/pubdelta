@@ -7,7 +7,7 @@ pubdelta prints only the CHANGELOG entries between the version your `pubspec.loc
 Opening a package's pub.dev changelog tab, finding your current version heading by hand and reading only what is above it gets old fast when `dart pub outdated` shows a dozen yellow lines. pubdelta does that cut for every package at once.
 
 ![pubdelta log --all in English: strong breaking signals first, then the entries between current and target](docs/images/01-hero.png)
-*`pubdelta log --all --budget 700`: each package shows `current → target`, the `STRONG` breaking lines first, then only the entries after your current version.*
+*`pubdelta log --all --budget 700` run on the `example/` practice data (the options `--lock example/pubspec.lock --outdated example/outdated.json --changelog-dir example/changelogs` are left out of the screenshot; the two warning lines below say so): each package shows `current → target`, the `STRONG` breaking lines first, then only the entries after your current version.*
 
 ## Who this is for
 
@@ -296,8 +296,9 @@ flowchart LR
 - Signals are a heuristic, see the signal table above. A breaking change that the changelog does not mention is not found.
 - `path` dependencies have no version history ("range unknown"); `git` and `sdk` dependencies get no changelog.
 - The MCP server has only been tested with a child-process round trip so far.
+- MCP tools silently ignore unknown arguments (for example `lock` instead of `lockFile`). The `plan` tool also accepts `outdatedFile`, which `tools/list` and the table above do not list. MCP error messages still mention CLI options such as `--lock`; read them as `lockFile` and `projectDir`.
 
-## Compared with other tools
+## When to use it (vs. other tools)
 
 - [dart_mcp_server](https://github.com/dart-lang/ai/tree/main/pkgs/dart_mcp_server), the official Dart and Flutter MCP server, runs pub commands and searches pub.dev, but has no changelog tool. Adding one is an open request ([dart-lang/ai#264](https://github.com/dart-lang/ai/issues/264)); pubdelta covers that gap and can run next to it. (Checked 2026-11-21.)
 - [changelog_bubbler](https://pub.dev/packages/changelog_bubbler) 0.2.1 collects changelogs for dependencies that changed between two git refs, that is after the upgrade. [pubspeccheck](https://pub.dev/packages/pubspeccheck) 0.1.1 warns about major updates at the link level. Both require an SDK below 3.0.0, so they do not run on Dart 3. (Checked 2026-11-21 on the pub.dev API.)

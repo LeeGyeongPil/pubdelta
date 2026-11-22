@@ -7,7 +7,7 @@ pubdelta 는 `pubspec.lock` 에 고정된 버전 다음부터 올리려는 버�
 `dart pub outdated` 에 노란 줄이 열 개쯤 쌓이면, 패키지마다 pub.dev 변경 기록 탭을 열어 현재 버전 머리글을 손으로 찾고 그 위쪽만 읽는 일이 번거롭습니다. pubdelta 가 모든 패키지에 대해 그 자르기를 한 번에 해 줍니다.
 
 ![한국어 화면의 pubdelta log --all: 강한 깨지는 신호가 맨 위, 그 아래에 현재~목표 사이 항목](docs/images/01-hero.ko.png)
-*`pubdelta log --all --budget 700`: 패키지마다 `현재 → 목표`, `강함` 으로 표시된 깨지는 줄, 그리고 현재 버전 다음 항목만 나옵니다.*
+*`example/` 연습 데이터로 실행한 `pubdelta log --all --budget 700` 화면입니다(`--lock example/pubspec.lock --outdated example/outdated.json --changelog-dir example/changelogs` 옵션은 화면에서 생략했고, 아래 경고 두 줄이 그 사실을 알려 줍니다): 패키지마다 `현재 → 목표`, `강함` 으로 표시된 깨지는 줄, 그리고 현재 버전 다음 항목만 나옵니다.*
 
 ## 이런 분께
 
@@ -300,8 +300,9 @@ flowchart LR
 - 신호는 휴리스틱입니다(위 신호 표 참고). 변경 기록에 적히지 않은 깨지는 변경은 찾지 못합니다.
 - `path` 의존성은 버전 이력이 없어 "구간 불명", `git`·`sdk` 의존성은 변경 기록이 없습니다.
 - MCP 서버는 아직 자식 프로세스 왕복 테스트로만 확인했습니다.
+- MCP 도구는 모르는 인자(예: `lockFile` 대신 `lock`)를 조용히 무시합니다. `plan` 도구는 `outdatedFile` 도 받지만 `tools/list` 와 위 표에는 없습니다. MCP 오류 문구는 아직 `--lock` 같은 CLI 옵션을 안내하니 `lockFile`·`projectDir` 로 바꿔 읽어 주세요.
 
-## 다른 도구와 비교
+## 언제 쓰나 (다른 도구와 비교)
 
 - 공식 Dart·Flutter MCP 서버인 [dart_mcp_server](https://github.com/dart-lang/ai/tree/main/pkgs/dart_mcp_server) 는 pub 명령 실행과 pub.dev 검색을 하지만 변경 기록 도구는 없습니다. 이를 더해 달라는 요청이 열려 있고([dart-lang/ai#264](https://github.com/dart-lang/ai/issues/264)), pubdelta 는 그 빈자리를 채우며 함께 띄워 쓸 수 있습니다. (2026-11-21 확인)
 - [changelog_bubbler](https://pub.dev/packages/changelog_bubbler) 0.2.1 은 두 git ref 사이에 바뀐 의존성의 변경 기록을 모읍니다(즉 올린 뒤). [pubspeccheck](https://pub.dev/packages/pubspeccheck) 0.1.1 은 메이저 업데이트를 링크 수준으로 알립니다. 둘 다 SDK 3.0.0 미만을 요구해 Dart 3 에서 돌지 않습니다. (2026-11-21 pub.dev API 로 확인)
